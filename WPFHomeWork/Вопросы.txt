@@ -1,0 +1,5 @@
+﻿В класс VMMainWIndow в метод DoubleClick передается параметр null, в MainWindow.xaml я написал строку CommandParameter ="{Binding SelectEmploee}".
+Если написать "{Binding Path=.}" то вернется форма в которой SelectEmploee определен.
+
+В классе VMMainWIndow в методе DoubleClick не могу создать экземпляр класса VMEmployeeWindow, пишет что  не удалось найти тип или пространство имен хотя 
+using WPFHomeWork.EmployeeWindowNS; установлено, EmployeeWindowNS в using выделяет зеленым шрифтом.
