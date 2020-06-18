@@ -17,7 +17,8 @@ namespace WPFHomeWork
             get { return selectEmploee; }
             set
             {
-                selectEmploee = value;                
+                selectEmploee = value;
+                OnPropertyChanged("SelectEmploee");
             }
         }
         private MyCommands mouseDoubleClick;
@@ -29,11 +30,12 @@ namespace WPFHomeWork
         {
             this.Employees = Data.ListEmployes();            
         }
-        private void DoubleClick(Object obj)
+        private void DoubleClick(Object obj)//obj null, поэтому приходится использовать SelectEmploee
         {
             EmployeeWindow employeeWindow = new EmployeeWindow();
             VMEmployeeWindow vMEmployeeWindow = new VMEmployeeWindow(SelectEmploee);
-            employeeWindow.DataContext = SelectEmploee;
+            vMEmployeeWindow.Employee = SelectEmploee;
+            employeeWindow.DataContext = vMEmployeeWindow;
             employeeWindow.Show();
         }
         public event PropertyChangedEventHandler PropertyChanged;

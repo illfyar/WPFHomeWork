@@ -24,7 +24,7 @@
                                   SelectedItem="{Binding SelectEmploee}">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="MouseDoubleClick">
-                                    <i:InvokeCommandAction Command="{Binding MouseDoubleClick}" CommandParameter ="{Binding Path=.}"/>
+                                    <i:InvokeCommandAction Command="{Binding MouseDoubleClick}" CommandParameter ="{Binding SelectEmploee}"/>
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                             <DataGrid.Columns>

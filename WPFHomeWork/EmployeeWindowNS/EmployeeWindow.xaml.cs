@@ -10,9 +10,12 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPFHomeWork;
+using System.Windows.Controls.Primitives;
 
-namespace WPFHomeWork
+namespace WPFHomeWork.EmployeeWindowNS
 {
     /// <summary>
     /// Логика взаимодействия для EmployeeWindow.xaml
