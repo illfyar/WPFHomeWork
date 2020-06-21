@@ -3,10 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"               
         xmlns:local="clr-namespace:WPFHomeWork.EmployeeWindowNS"
         mc:Ignorable="d"
         Title="EmployeeWindow" Height="227.89" Width="400">
-    <Grid x:Name="EmployesGrid" DataContext="{Binding Employee}">        
+    <Grid x:Name="EmployesGrid">        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="120"/>
             <ColumnDefinition/>
@@ -26,12 +27,42 @@
         <Label Content="Дата рождения:" Grid.Row="3" HorizontalAlignment="Right" Margin="0,0,2,0"/>
         <Label Content="Должность:" Grid.Row="4" HorizontalAlignment="Right" Margin="0,0,2,0"/>
         <Label Content="Подразделение:" Grid.Row="5" HorizontalAlignment="Right" Margin="0,0,2,0"/>
-        <TextBox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Name="LastNameTB" Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-        <TextBox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" Name="FirstNameTB" Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-        <TextBox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" Name="DateBornTB" Text="{Binding DateBorn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-        <TextBox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="4" Name="PositionTB" Text="{Binding Position, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-        <TextBox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="5" Name="DepartamentTB" Text="{Binding Department, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-        <Button Grid.Column="2" Grid.Row="6" Name="Save" Content="Записать" Margin="5"/>        
+        <TextBox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Name="LastNameTB" Text="{Binding NewEmployee.LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" Name="FirstNameTB" Text="{Binding NewEmployee.FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" Name="DateBornTB" Text="{Binding NewEmployee.DateBorn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <ComboBox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="4" Name="PositionCB" ItemsSource="{Binding Positions, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                  SelectedItem="{Binding SelectedPosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsSynchronizedWithCurrentItem ="True">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding SelectionChanged}" CommandParameter="{Binding ElementName = PositionCB, Path = SelectedItem}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ComboBox>
+        <ComboBox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="5" Name="DepartamentCB"  ItemsSource="{Binding Departments}" 
+                  SelectedItem="{Binding SelectedDepartment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsSynchronizedWithCurrentItem ="True">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding SelectionChanged}" CommandParameter="{Binding ElementName = DepartamentCB, Path = SelectedItem}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ComboBox>
+        <Button Grid.Column="2" Grid.Row="6" Name="Save" Content="Записать" Margin="5">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <i:InvokeCommandAction Command="{Binding SaveEmployee}" CommandParameter="{Binding NewEmployee}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Button>        
     </Grid>
     
 </Window>

@@ -9,5 +9,10 @@ namespace WPFHomeWork
     public class Position
     {
         public string Name { get; set; }
+
+        public Position(string name)
+        {
+            Name = name;
+        }
     }
 }

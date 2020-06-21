@@ -13,5 +13,9 @@ namespace WPFHomeWork
         public Employee(string firstName, string lastName, DateTime dateBorn) : base(firstName, lastName, dateBorn)
         {
         }
+        public Employee()
+        {
+        }
     }
 }
+

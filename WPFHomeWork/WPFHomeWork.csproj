@@ -122,5 +122,11 @@
   <ItemGroup>
     <Resource Include="Вопросы.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Library\Library.csproj">
+      <Project>{62873ec8-bd62-4031-bd35-8bd3df213f56}</Project>
+      <Name>Library</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

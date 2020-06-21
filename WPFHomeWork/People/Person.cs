@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WPFHomeWork
+namespace WPFHomeWork 
 {
-    public class Person
+    public class Person : ICloneable
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -16,6 +16,14 @@ namespace WPFHomeWork
             FirstName = firstName;
             LastName = lastName;
             DateBorn = dateBorn;
+        }
+        public Person()
+        {
+
+        }
+        public object Clone()
+        {
+            return this.MemberwiseClone();
         }
     }
 }

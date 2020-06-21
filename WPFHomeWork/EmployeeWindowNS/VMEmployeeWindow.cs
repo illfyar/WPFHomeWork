@@ -1,18 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using Library;
+using WPFHomeWork.data;
 
 namespace WPFHomeWork.EmployeeWindowNS
 {
     public class VMEmployeeWindow : INotifyPropertyChanged
     {
-        private Employee employee;
-        public Employee Employee { get; set; }
-
+        EmployeeWindow EmployeeWindow { get; set; }
+        public ObservableCollection<Position> Positions { get; set; }
+        private Position selectedPosition;
+        public Position SelectedPosition { get { return selectedPosition; }
+            set { selectedPosition = value;
+                OnPropertyChanged("SelectedPosition");
+            } }
+        public ObservableCollection<Department> Departments { get; set; }
+        public Department SelectedDepartment { get; set; }
+        Action UpdateInfo { get; set; }
+        private Employee oldEmployee;
+        private Employee newEmployee;
+        public Employee NewEmployee { get { return newEmployee; }
+            set 
+            { 
+                newEmployee = value;
+                OnPropertyChanged("NewEmployee");
+            } }
+        #region Commands
+        #region saveEmployee
         private MyCommands saveEmployee;
         public MyCommands SaveEmployee
         {
@@ -25,13 +45,44 @@ namespace WPFHomeWork.EmployeeWindowNS
         {
             if (obj is Employee)
             {
-                employee = (Employee)obj;
+                HandlingObjects.CopyValueProperties<Employee>(oldEmployee, NewEmployee);
+                UpdateInfo?.Invoke();
             }             
         }
-
-        public VMEmployeeWindow(Employee employee)
+        #endregion
+        #region SelectionChanged
+        private MyCommands selectionChanged;
+        public MyCommands SelectionChanged
         {
-            Employee = employee;
+            get
+            {
+                return selectionChanged ?? (selectionChanged = new MyCommands(SelectionChangedMethod));
+            }
+        }
+        private void SelectionChangedMethod(Object obj)
+        {
+            if (obj is Position)
+            {
+                NewEmployee.Position = (Position)obj;
+            }
+            if (obj is Department)
+            {
+                NewEmployee.Department = (Department)obj;
+            }
+        }        
+        #endregion
+        #endregion
+
+        public VMEmployeeWindow(Employee employee, Action action, EmployeeWindow employeeWindow)
+        {
+            Positions = Data.ObservableCollectionPositions();
+            Departments = Data.ObservableCollectionDepartments();
+            UpdateInfo = action;
+            oldEmployee = employee;
+            NewEmployee = (Employee) employee.Clone();
+            SelectedPosition = employee.Position;
+            SelectedDepartment = employee.Department;
+            EmployeeWindow = employeeWindow;
         }
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")

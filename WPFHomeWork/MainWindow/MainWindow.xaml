@@ -13,39 +13,49 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Menu>
-            <MenuItem Header="Добавить">                
+            <MenuItem Header="Добавить">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction Command="{Binding AddEmployee}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </MenuItem>
+            <MenuItem Header="Удалить">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction Command="{Binding RemoveEmployee}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
             </MenuItem>
         </Menu>
-        <TabControl Grid.Row="1">
+        <TabControl Grid.Row="1" SelectedItem ="{Binding SelectTab}">
             <TabItem Header="Сотрудники">
                 <Grid>                    
                     <ScrollViewer>
                         <DataGrid x:Name="EmployesTable" AutoGenerateColumns="False" ItemsSource="{Binding Employees, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                  SelectedItem="{Binding SelectEmploee}">
+                                  SelectedItem="{Binding SelectEmployee, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="MouseDoubleClick">
-                                    <i:InvokeCommandAction Command="{Binding MouseDoubleClick}" CommandParameter ="{Binding SelectEmploee}"/>
+                                    <i:InvokeCommandAction Command="{Binding MouseDoubleClick}" CommandParameter ="{Binding SelectEmployee}"/>
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Фамилия" Binding="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
                                 <DataGridTextColumn Header="Имя" Binding="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
                                 <DataGridTextColumn Header="Дата рождения" Binding="{Binding DateBorn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
-                                <DataGridTextColumn Header="Должность" Binding="{Binding Position, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
-                                <DataGridTextColumn Header="Подразделение" Binding="{Binding Department, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Должность" Binding="{Binding Position.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Подразделение" Binding="{Binding Department.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </ScrollViewer>
                 </Grid>
             </TabItem>
             <TabItem Header="Подразделения">
-                <Grid>
-                    <DataGrid>
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Наименование"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </Grid>
+                <TreeView>
+                    <TreeViewItem ItemsSource="{Binding Departaments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <TextBlock Text="{Binding Name}"/>
+                    </TreeViewItem>
+                </TreeView>
             </TabItem>
         </TabControl>   
     </Grid>

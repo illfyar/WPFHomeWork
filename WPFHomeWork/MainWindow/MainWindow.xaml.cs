@@ -25,7 +25,7 @@ namespace WPFHomeWork
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new VMMainWIndow();
+            DataContext = new VMMainWIndow(this);
         }
     }
 }

@@ -1,7 +1,10 @@
-﻿using System;
+﻿using Library;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using WPFHomeWork.data;
 using WPFHomeWork.EmployeeWindowNS;
 
@@ -9,40 +12,88 @@ namespace WPFHomeWork
 {
     public class VMMainWIndow : INotifyPropertyChanged
     {
-        public List<Employee> Employees { get; set; }       
+        public ObservableCollection<Employee> Employees { get; set; }      
+        public ObservableCollection<Department> Departments { get; set; }
 
-        private Employee selectEmploee;
-        public Employee SelectEmploee
+        private MainWindow MainWindow { get; set; }
+        private Employee selectEmployee;
+        public Employee SelectEmployee
         {
-            get { return selectEmploee; }
+            get { return selectEmployee; }
             set
             {
-                selectEmploee = value;
-                OnPropertyChanged("SelectEmploee");
+                selectEmployee = value;
+                OnPropertyChanged("SelectEmployee");
             }
         }
+        #region Commands
+        #region AddEmployee
+        private MyCommands addEmployee;
+        public MyCommands AddEmployee
+        {
+            get
+            {
+                return addEmployee ?? (addEmployee = new MyCommands(AddEmployeeHandler));
+            }
+        }
+        private void AddEmployeeHandler(Object obj)
+        {
+            Employee employee = new Employee();
+            Employees.Add(employee);
+            EditEmployee(employee);
+        }
+        #endregion
+        #region RemoveEmployee
+        private MyCommands removeEmployee;
+        public MyCommands RemoveEmployee
+        {
+            get
+            {
+                return removeEmployee ?? (removeEmployee = new MyCommands(RemoveEmployeeHandler));
+            }
+        }
+        private void RemoveEmployeeHandler(Object obj)
+        {
+            Employees.Remove(SelectEmployee);            
+        }
+        #endregion
+        #region MouseDoubleClick
         private MyCommands mouseDoubleClick;
         public MyCommands MouseDoubleClick { 
             get {
-                return mouseDoubleClick ?? (mouseDoubleClick = new MyCommands(DoubleClick));
+                return mouseDoubleClick ?? (mouseDoubleClick = new MyCommands(EditEmployee));
             } }
-        public VMMainWIndow()
+        #endregion
+        private void EditEmployee(Object obj)
         {
-            this.Employees = Data.ListEmployes();            
+            if (obj is Employee)
+            {
+                EmployeeWindow employeeWindow = new EmployeeWindow();
+                VMEmployeeWindow vMEmployeeWindow = new VMEmployeeWindow(Employees[Employees.IndexOf((Employee)obj)], new Action(UpdateInfo), employeeWindow);
+                employeeWindow.DataContext = vMEmployeeWindow;
+                employeeWindow.Show();
+            }
+            else
+            {
+                MessageBox.Show("Значение неопределено");
+            }
+
         }
-        private void DoubleClick(Object obj)//obj null, поэтому приходится использовать SelectEmploee
+        #endregion
+        public VMMainWIndow(MainWindow mainWindow)
         {
-            EmployeeWindow employeeWindow = new EmployeeWindow();
-            VMEmployeeWindow vMEmployeeWindow = new VMEmployeeWindow(SelectEmploee);
-            vMEmployeeWindow.Employee = SelectEmploee;
-            employeeWindow.DataContext = vMEmployeeWindow;
-            employeeWindow.Show();
-        }
+            MainWindow = mainWindow;
+            this.Employees = Data.ObservableCollectionEmployes();            
+        }        
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
+        }
+        public void UpdateInfo()
+        {
+            MainWindow.EmployesTable.Items.Refresh();
         }
     }
 }

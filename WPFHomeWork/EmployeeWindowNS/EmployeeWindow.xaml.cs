@@ -24,11 +24,12 @@ namespace WPFHomeWork.EmployeeWindowNS
     {
         public EmployeeWindow()
         {
-            InitializeComponent();
-            if (DataContext == null)
-            {
-                DataContext = new Employee("","",new DateTime());
-            }            
+            InitializeComponent();        
+        }
+
+        private void PositionCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
