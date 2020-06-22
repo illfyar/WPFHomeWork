@@ -11,11 +11,13 @@ namespace WPFHomeWork
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime DateBorn { get; set; }
-        public Person(string firstName, string lastName, DateTime dateBorn)
+        public char Gender { get; set; }
+        public Person(string firstName, string lastName, DateTime dateBorn, char gender)
         {
             FirstName = firstName;
             LastName = lastName;
             DateBorn = dateBorn;
+            Gender = gender;
         }
         public Person()
         {
