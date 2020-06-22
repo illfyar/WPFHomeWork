@@ -13,6 +13,7 @@ namespace WPFHomeWork.EmployeeWindowNS
 {
     public class VMEmployeeWindow : INotifyPropertyChanged
     {
+<<<<<<< Updated upstream
         EmployeeWindow EmployeeWindow { get; set; }
         public ObservableCollection<Position> Positions { get; set; }
         private Position selectedPosition;
@@ -33,6 +34,14 @@ namespace WPFHomeWork.EmployeeWindowNS
             } }
         #region Commands
         #region saveEmployee
+=======
+        private Employee newEmployee;
+        public Employee NewEmployee { 
+            get { return newEmployee; } 
+            set { newEmployee = value; OnPropertyChanged("Employee"); } }
+        private Employee oldEmployee;
+
+>>>>>>> Stashed changes
         private MyCommands saveEmployee;
         public MyCommands SaveEmployee
         {
@@ -45,6 +54,7 @@ namespace WPFHomeWork.EmployeeWindowNS
         {
             if (obj is Employee)
             {
+<<<<<<< Updated upstream
                 HandlingObjects.CopyValueProperties<Employee>(oldEmployee, NewEmployee);
                 UpdateInfo?.Invoke();
             }             
@@ -83,6 +93,16 @@ namespace WPFHomeWork.EmployeeWindowNS
             SelectedPosition = employee.Position;
             SelectedDepartment = employee.Department;
             EmployeeWindow = employeeWindow;
+=======
+                oldEmployee = (Employee)obj;
+            }             
+        }
+        public VMEmployeeWindow(Employee employee)
+        {
+            //oldEmployee = employee;
+            NewEmployee = employee;
+                //(Employee)employee.Clone();
+>>>>>>> Stashed changes
         }
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")

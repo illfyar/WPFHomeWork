@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"               
         xmlns:local="clr-namespace:WPFHomeWork.EmployeeWindowNS"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
         mc:Ignorable="d"
         Title="EmployeeWindow" Height="227.89" Width="400">
     <Grid x:Name="EmployesGrid">        
@@ -30,6 +31,7 @@
         <TextBox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Name="LastNameTB" Text="{Binding NewEmployee.LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         <TextBox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" Name="FirstNameTB" Text="{Binding NewEmployee.FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         <TextBox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" Name="DateBornTB" Text="{Binding NewEmployee.DateBorn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+<<<<<<< Updated upstream
         <ComboBox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="4" Name="PositionCB" ItemsSource="{Binding Positions, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                   SelectedItem="{Binding SelectedPosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsSynchronizedWithCurrentItem ="True">
             <ComboBox.ItemTemplate>
@@ -56,6 +58,10 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </ComboBox>
+=======
+        <TextBox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="4" Name="PositionTB" Text="{Binding NewEmployee.Position, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="5" Name="DepartamentTB" Text="{Binding NewEmployee.Department, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+>>>>>>> Stashed changes
         <Button Grid.Column="2" Grid.Row="6" Name="Save" Content="Записать" Margin="5">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click">
@@ -63,6 +69,10 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </Button>        
+<<<<<<< Updated upstream
+=======
+        
+>>>>>>> Stashed changes
     </Grid>
     
 </Window>

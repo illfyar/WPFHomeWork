@@ -24,12 +24,16 @@ namespace WPFHomeWork.EmployeeWindowNS
     {
         public EmployeeWindow()
         {
+<<<<<<< Updated upstream
             InitializeComponent();        
         }
 
         private void PositionCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+=======
+            InitializeComponent();       
+>>>>>>> Stashed changes
         }
     }
 }

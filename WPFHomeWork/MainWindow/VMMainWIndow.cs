@@ -79,12 +79,29 @@ namespace WPFHomeWork
             }
 
         }
+<<<<<<< Updated upstream
         #endregion
         public VMMainWIndow(MainWindow mainWindow)
         {
             MainWindow = mainWindow;
             this.Employees = Data.ObservableCollectionEmployes();            
         }        
+=======
+        private void DoubleClick(object obj)
+        {
+            if (obj is Employee)
+            {
+                EmployeeWindow employeeWindow = new EmployeeWindow();
+                VMEmployeeWindow vMEmployeeWindow = new VMEmployeeWindow((Employee)obj);
+                employeeWindow.DataContext = vMEmployeeWindow;
+                employeeWindow.Show();
+            }
+            else
+            {
+                MessageBox.Show("Объект не определен");
+            }            
+        }
+>>>>>>> Stashed changes
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {

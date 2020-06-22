@@ -16,6 +16,10 @@ namespace WPFHomeWork
         public Employee()
         {
         }
+        public override object Clone()
+        {
+            return (Employee)this.MemberwiseClone();
+        }
     }
 }
 

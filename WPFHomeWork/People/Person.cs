@@ -27,5 +27,9 @@ namespace WPFHomeWork
         {
             return this.MemberwiseClone();
         }
+        public virtual object Clone()
+        {
+            return (Person)this.MemberwiseClone();
+        }
     }
 }
