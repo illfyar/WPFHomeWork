@@ -10,7 +10,7 @@ namespace WPFHomeWork
     {
         public Position Position { get; set; }
         public Department Department { get; set; }
-        public Employee(string firstName, string lastName, DateTime dateBorn, char gender) : base(firstName, lastName, dateBorn, gender)
+        public Employee(int id, string firstName, string lastName, DateTime dateBorn, char gender) : base(id, firstName, lastName, dateBorn, gender)
         {
         }
         public Employee()

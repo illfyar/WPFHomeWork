@@ -84,7 +84,7 @@ namespace WPFHomeWork
         public VMMainWIndow(MainWindow mainWindow)
         {
             MainWindow = mainWindow;
-            this.Employees = Data.ObservableCollectionEmployes();            
+            this.Employees = DataQueries.GetEmployes();            
         }        
 =======
         private void DoubleClick(object obj)

@@ -12,20 +12,19 @@ namespace WPFHomeWork
         public string LastName { get; set; }
         public DateTime DateBorn { get; set; }
         public char Gender { get; set; }
-        public Person(string firstName, string lastName, DateTime dateBorn, char gender)
+
+        public int Id { get; set; }
+        public Person(int id, string firstName, string lastName, DateTime dateBorn, char gender)
         {
             FirstName = firstName;
             LastName = lastName;
             DateBorn = dateBorn;
             Gender = gender;
+            Id = id;
         }
         public Person()
         {
 
-        }
-        public object Clone()
-        {
-            return this.MemberwiseClone();
         }
         public virtual object Clone()
         {

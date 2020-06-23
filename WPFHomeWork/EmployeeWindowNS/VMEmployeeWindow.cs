@@ -85,8 +85,8 @@ namespace WPFHomeWork.EmployeeWindowNS
 
         public VMEmployeeWindow(Employee employee, Action action, EmployeeWindow employeeWindow)
         {
-            Positions = Data.ObservableCollectionPositions();
-            Departments = Data.ObservableCollectionDepartments();
+            Positions = DataQueries.ObservableCollectionPositions();
+            Departments = DataQueries.ObservableCollectionDepartments();
             UpdateInfo = action;
             oldEmployee = employee;
             NewEmployee = (Employee) employee.Clone();

@@ -78,7 +78,7 @@
     </Compile>
     <Compile Include="EmployeeWindowNS\VMEmployeeWindow.cs" />
     <Compile Include="MyCommands.cs" />
-    <Compile Include="MainWindow\Data.cs" />
+    <Compile Include="Data\DataQueries.cs" />
     <Compile Include="Department.cs" />
     <Compile Include="EmployeeWindowNS\EmployeeWindow.xaml.cs">
       <DependentUpon>EmployeeWindow.xaml</DependentUpon>

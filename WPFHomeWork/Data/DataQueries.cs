@@ -1,20 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WPFHomeWork.data
+namespace WPFHomeWork
 {
-    static class Data
+    static class DataQueries
     {
-        public static ObservableCollection<Employee> ObservableCollectionEmployes()
+        const string CONNECTIONSTRING = @"Data Source=(localdb)\MSSQLLocalDB;" +
+            "Initial Catalog=ZUP;" +
+            "Integrated Security=True;" +
+            "Pooling = true;";
+        public static ObservableCollection<Employee> GetEmployes()
         {
-
-            return new ObservableCollection<Employee> {new Employee("Иван","Иванов", new DateTime(1990,01,01)),
-            new Employee("Петр", "Петров", new DateTime(1990, 01, 02)),
-            new Employee("Сидр","Сидоров", new DateTime(1990,01,03))};            
+            //SqlConnection sqlConnection = new SqlConnection(CONNECTIONSTRING);
+            //sqlConnection.Open();
+            //SqlCommand sqlCommand = new SqlCommand(CONNECTIONSTRING,,,)
+            return null;
         }
         public static ObservableCollection<Position> ObservableCollectionPositions()
         {
