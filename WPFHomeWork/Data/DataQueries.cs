@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WPFHomeWork
+namespace WPFHomeWork.Data
 {
     static class DataQueries
     {
@@ -14,54 +15,66 @@ namespace WPFHomeWork
             "Initial Catalog=ZUP;" +
             "Integrated Security=True;" +
             "Pooling = true;";
-        public static ObservableCollection<Employee> GetEmployes()
-        {
-            //SqlConnection sqlConnection = new SqlConnection(CONNECTIONSTRING);
-            //sqlConnection.Open();
-            //SqlCommand sqlCommand = new SqlCommand(CONNECTIONSTRING,,,)
-            return null;
-        }
-        public static ObservableCollection<Position> ObservableCollectionPositions()
-        {
 
-            return new ObservableCollection<Position> {new Position("Руководитель"),new Position("Старший программист"), new Position("Программист")};
-        }
-        public static ObservableCollection<Department> ObservableCollectionDepartments()
+        public static DataTable SelectEmployes()
         {
-            ObservableCollection<Department> departments = new ObservableCollection<Department>();
-            Random random = new Random();
-            for (int i = 0; i < 10; i++)
+            StringBuilder sqlText = new StringBuilder(
+                "Select Employee.Id," +
+                "Person.LastName," +
+                "Person.FirstName," +
+                "Person.DateBorn," +
+                "Position.PositionName," +
+                "Department.DepartmentName," +
+                "Salary.Value," +
+                "Person.Id AS Person_Id," +
+                "Position.Id AS Position_Id," +
+                "Department.Id AS Department_Id," +
+                "Salary.Id AS Salary_Id " +
+                "From Employee " +
+                "Left join Person on Person_id = Person.Id " +
+                "Left join Position on Employee.Position_id = Position.Id " +
+                "Left join Department on Department_id = Department.Id " +
+                "Left Join Salary on Salary_id = Salary.Id");           
+
+                return ExecuteSelect(sqlText.ToString());
+        }
+
+        public static DataTable SelectPositions()
+        {
+            StringBuilder sqlText = new StringBuilder(
+                "Select Position.Id," +
+                "Position.PositionName " +
+                "From Position");
+
+            return ExecuteSelect(sqlText.ToString());            
+        }
+        public static DataTable ObservableCollectionDepartments()
+        {
+            StringBuilder sqlText = new StringBuilder(
+                "Select Department.Id," +
+                "Department.DepartmentName," +
+                "Department.Parent " +
+                "From Department");
+
+            return ExecuteSelect(sqlText.ToString());
+        }
+
+        private static DataTable ExecuteSelect(string sqlText)
+        {
+            DataTable dataTable = new DataTable();
+
+            using (SqlConnection sqlConnection = new SqlConnection(CONNECTIONSTRING))
             {
-                Department department = new Department("Подразледение " + i);
-                departments.Add(department);
+                SqlCommand sqlCommand = new SqlCommand(sqlText.ToString(), sqlConnection);
+                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
+                sqlDataAdapter.Fill(dataTable);
+
+                DataColumn[] pk = new DataColumn[1];
+                pk[0] = dataTable.Columns["Id"];
+                dataTable.PrimaryKey = pk;
+
+                return dataTable;
             }
-            //departments = departments.Select(x => x.Level += random.Next(1, 3)).ToList();
-            foreach (Department department in departments)
-            {
-                department.Level = random.Next(1, 4);
-            }
-            departments[0].Level = 0;
-            var departmentsLvl1 = departments.Where(x => x.Level == 1).ToList();
-            var departmentsLvl2 = departments.Where(x => x.Level == 2).ToList();
-            var departmentsLvl3 = departments.Where(x => x.Level == 3).ToList();
-            departments[0].Subsidiary = departmentsLvl1.ToList();
-            foreach (Department department in departmentsLvl1)
-            {
-                department.Parent = departments[0];
-            }
-            foreach (Department department in departmentsLvl2)
-            {
-                Department parent = departmentsLvl1[random.Next(0, departmentsLvl1.Count)];
-                department.Parent = parent;
-                parent.Subsidiary.Add(department);
-            }
-            foreach (Department department in departmentsLvl3)
-            {
-                Department parent = departmentsLvl2[random.Next(0, departmentsLvl2.Count)];
-                department.Parent = parent;
-                parent.Subsidiary.Add(department);
-            }
-            return departments;
         }
     }
 }

@@ -3,21 +3,23 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Data;
 using System.Runtime.CompilerServices;
 using System.Windows;
-using WPFHomeWork.data;
+
+using WPFHomeWork.Data;
 using WPFHomeWork.EmployeeWindowNS;
 
 namespace WPFHomeWork
 {
     public class VMMainWIndow : INotifyPropertyChanged
     {
-        public ObservableCollection<Employee> Employees { get; set; }      
+        public DataTable Employees { get; set; }      
         public ObservableCollection<Department> Departments { get; set; }
 
         private MainWindow MainWindow { get; set; }
-        private Employee selectEmployee;
-        public Employee SelectEmployee
+        private DataRowView selectEmployee;
+        public DataRowView SelectEmployee
         {
             get { return selectEmployee; }
             set
@@ -25,6 +27,11 @@ namespace WPFHomeWork
                 selectEmployee = value;
                 OnPropertyChanged("SelectEmployee");
             }
+        }
+        public VMMainWIndow(MainWindow mainWindow)
+        {
+            MainWindow = mainWindow;
+            this.Employees = DataQueries.SelectEmployes();
         }
         #region Commands
         #region AddEmployee
@@ -38,9 +45,9 @@ namespace WPFHomeWork
         }
         private void AddEmployeeHandler(Object obj)
         {
-            Employee employee = new Employee();
-            Employees.Add(employee);
-            EditEmployee(employee);
+            //Employee employee = new Employee();
+            //Employees.Add(employee);
+            //UpdateEmployee(employee);
         }
         #endregion
         #region RemoveEmployee
@@ -54,22 +61,22 @@ namespace WPFHomeWork
         }
         private void RemoveEmployeeHandler(Object obj)
         {
-            Employees.Remove(SelectEmployee);            
+            //Employees.Remove(SelectEmployee);            
         }
         #endregion
         #region MouseDoubleClick
         private MyCommands mouseDoubleClick;
         public MyCommands MouseDoubleClick { 
             get {
-                return mouseDoubleClick ?? (mouseDoubleClick = new MyCommands(EditEmployee));
+                return mouseDoubleClick ?? (mouseDoubleClick = new MyCommands(UpdateEmployee));
             } }
         #endregion
-        private void EditEmployee(Object obj)
+        private void UpdateEmployee(Object obj)
         {
-            if (obj is Employee)
+            if (obj is DataRowView)
             {
                 EmployeeWindow employeeWindow = new EmployeeWindow();
-                VMEmployeeWindow vMEmployeeWindow = new VMEmployeeWindow(Employees[Employees.IndexOf((Employee)obj)], new Action(UpdateInfo), employeeWindow);
+                VMEmployeeWindow vMEmployeeWindow = new VMEmployeeWindow((DataRowView)(obj), new Action(UpdateInfo), employeeWindow);
                 employeeWindow.DataContext = vMEmployeeWindow;
                 employeeWindow.Show();
             }
@@ -79,29 +86,8 @@ namespace WPFHomeWork
             }
 
         }
-<<<<<<< Updated upstream
         #endregion
-        public VMMainWIndow(MainWindow mainWindow)
-        {
-            MainWindow = mainWindow;
-            this.Employees = DataQueries.GetEmployes();            
-        }        
-=======
-        private void DoubleClick(object obj)
-        {
-            if (obj is Employee)
-            {
-                EmployeeWindow employeeWindow = new EmployeeWindow();
-                VMEmployeeWindow vMEmployeeWindow = new VMEmployeeWindow((Employee)obj);
-                employeeWindow.DataContext = vMEmployeeWindow;
-                employeeWindow.Show();
-            }
-            else
-            {
-                MessageBox.Show("Объект не определен");
-            }            
-        }
->>>>>>> Stashed changes
+
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {

@@ -32,7 +32,7 @@
             <TabItem Header="Сотрудники">
                 <Grid>                    
                     <ScrollViewer>
-                        <DataGrid x:Name="EmployesTable" AutoGenerateColumns="False" ItemsSource="{Binding Employees, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        <DataGrid x:Name="EmployesTable" AutoGenerateColumns="false" ItemsSource="{Binding Employees, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                   SelectedItem="{Binding SelectEmployee, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="MouseDoubleClick">
@@ -40,11 +40,13 @@
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Фамилия" Binding="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
-                                <DataGridTextColumn Header="Имя" Binding="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
-                                <DataGridTextColumn Header="Дата рождения" Binding="{Binding DateBorn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
-                                <DataGridTextColumn Header="Должность" Binding="{Binding Position.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
-                                <DataGridTextColumn Header="Подразделение" Binding="{Binding Department.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Номер" Width="50" Binding="{Binding Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Фамилия" Width="150" Binding="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Имя" Width="150" Binding="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Дата рождения" Width="100" Binding="{Binding DateBorn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Должность" Width="150" Binding="{Binding PositionName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Подразделение" Width="150" Binding="{Binding DepartmentName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Зарплата" Width="100" Binding="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </ScrollViewer>

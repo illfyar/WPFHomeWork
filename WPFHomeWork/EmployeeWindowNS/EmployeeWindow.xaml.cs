@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WPFHomeWork;
 using System.Windows.Controls.Primitives;
+using Library;
 
 namespace WPFHomeWork.EmployeeWindowNS
 {
@@ -26,6 +27,11 @@ namespace WPFHomeWork.EmployeeWindowNS
         {
 
             InitializeComponent();        
+        }
+
+        private void LastNameTB_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+
         }
     }
 }

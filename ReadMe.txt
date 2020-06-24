@@ -9,12 +9,12 @@ CREATE TABLE [dbo].[Person]
 CREATE TABLE [dbo].[Position]
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
-    [Name] NCHAR(200) NULL
+    [PositionName] NCHAR(200) NULL
 )
 CREATE TABLE [dbo].[Department]
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
-    [Name] NCHAR(200) NULL, 
+    [DepartmentName] NCHAR(200) NULL, 
     [Parent] INT NULL, 
     CONSTRAINT [FK_Department_Department] FOREIGN KEY ([Parent]) REFERENCES [Department]([Id])
 )

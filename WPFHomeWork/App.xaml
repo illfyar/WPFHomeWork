@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:WPFHomeWork"
              StartupUri="MainWindow\MainWindow.xaml">
     <Application.Resources>
-         
+            <local:ConvertBool x:Key="sdss"/>
     </Application.Resources>
 </Application>

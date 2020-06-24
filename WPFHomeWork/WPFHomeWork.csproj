@@ -76,6 +76,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ConvertBool.cs" />
     <Compile Include="EmployeeWindowNS\VMEmployeeWindow.cs" />
     <Compile Include="MyCommands.cs" />
     <Compile Include="Data\DataQueries.cs" />
