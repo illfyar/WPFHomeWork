@@ -7,7 +7,7 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"               
         xmlns:local="clr-namespace:WPFHomeWork"        
         mc:Ignorable="d"
-        Title="EmployeeWindow" Height="227.89" Width="400">
+        Title="EmployeeWindow" Height="261.89" Width="400">
     <!--
     <Window.Resources>
         <local:ConvertBool x:Key="convertBool"/>
@@ -27,27 +27,29 @@
             <RowDefinition Height="30"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
         <Label Content="Фамилия:" Grid.Row="1" HorizontalAlignment="Right" Margin="0,0,2,0"/>
         <Label Content="Имя:" Grid.Row="2" HorizontalAlignment="Right" Margin="0,0,2,0"/>
         <Label Content="Дата рождения:" Grid.Row="3" HorizontalAlignment="Right" Margin="0,0,2,0"/>
         <Label Content="Должность:" Grid.Row="4" HorizontalAlignment="Right" Margin="0,0,2,0"/>
         <Label Content="Подразделение:" Grid.Row="5" HorizontalAlignment="Right" Margin="0,0,2,0"/>
-        <TextBox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Name="LastNameTB" Text="{Binding Employee.LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+        <Label Content="Зарплата:" Grid.Row="6" HorizontalAlignment="Right" Margin="0,0,2,0"/>
+        <TextBox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Name="LastNameTB" Text="{Binding NewEmployee.LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="PreviewTextInput">
                     <i:InvokeCommandAction Command="{Binding IsEdit}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </TextBox>
-        <TextBox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" Name="FirstNameTB" Text="{Binding Employee.FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+        <TextBox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" Name="FirstNameTB" Text="{Binding NewEmployee.FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="PreviewTextInput">
                     <i:InvokeCommandAction Command="{Binding IsEdit}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </TextBox>
-        <TextBox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" Name="DateBornTB" Text="{Binding Employee.DateBorn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+        <TextBox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" Name="DateBornTB" Text="{Binding NewEmployee.DateBorn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="PreviewTextInput">
                     <i:InvokeCommandAction Command="{Binding IsEdit}"/>
@@ -55,11 +57,11 @@
             </i:Interaction.Triggers>
         </TextBox>
         <ComboBox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="4" Name="PositionCB" 
-                  ItemsSource="{Binding Positions, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                  ItemsSource="{Binding Positions, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                  
                   SelectedItem="{Binding SelectedPosition, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsSynchronizedWithCurrentItem ="True">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding PositionName}"/>
+                    <TextBlock Text="{Binding Name}"/>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
             <i:Interaction.Triggers>
@@ -72,7 +74,7 @@
                   SelectedItem="{Binding SelectedDepartment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsSynchronizedWithCurrentItem ="True">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding DepartmentName}"/>
+                    <TextBlock Text="{Binding Name}"/>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
             <i:Interaction.Triggers>
@@ -81,7 +83,14 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </ComboBox>
-        <Button Grid.Column="2" Grid.Row="6" Name="Save" Content="Записать" Margin="5">
+        <TextBox Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="6" Name="SalaryTB" Text="{Binding NewEmployee.Salary.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="PreviewTextInput">
+                    <i:InvokeCommandAction Command="{Binding IsEdit}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </TextBox>
+        <Button Grid.Column="2" Grid.Row="7" Name="Save" Content="Записать" Margin="5">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click">
                     <i:InvokeCommandAction Command="{Binding SaveEmployee}" CommandParameter="{Binding Employee}"/>

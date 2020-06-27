@@ -14,12 +14,12 @@ namespace WPFHomeWork
 {
     public class VMMainWIndow : INotifyPropertyChanged
     {
-        public DataTable Employees { get; set; }      
+        public ObservableCollection<Employee> Employees { get; set; }      
         public ObservableCollection<Department> Departments { get; set; }
 
         private MainWindow MainWindow { get; set; }
-        private DataRowView selectEmployee;
-        public DataRowView SelectEmployee
+        private Employee selectEmployee;
+        public Employee SelectEmployee
         {
             get { return selectEmployee; }
             set
@@ -70,13 +70,13 @@ namespace WPFHomeWork
             get {
                 return mouseDoubleClick ?? (mouseDoubleClick = new MyCommands(UpdateEmployee));
             } }
-        #endregion
         private void UpdateEmployee(Object obj)
         {
-            if (obj is DataRowView)
+            if (obj is Employee)
             {
                 EmployeeWindow employeeWindow = new EmployeeWindow();
-                VMEmployeeWindow vMEmployeeWindow = new VMEmployeeWindow((DataRowView)(obj), new Action(UpdateInfo), employeeWindow);
+                VMEmployeeWindow vMEmployeeWindow =
+                    new VMEmployeeWindow((Employee)obj, new Action(UpdateInfo), employeeWindow);
                 employeeWindow.DataContext = vMEmployeeWindow;
                 employeeWindow.Show();
             }
@@ -86,6 +86,7 @@ namespace WPFHomeWork
             }
 
         }
+        #endregion
         #endregion
 
         public event PropertyChangedEventHandler PropertyChanged;

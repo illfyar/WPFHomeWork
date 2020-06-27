@@ -9,14 +9,14 @@ CREATE TABLE [dbo].[Person]
 CREATE TABLE [dbo].[Position]
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
-    [PositionName] NCHAR(200) NULL
+    [Name] NCHAR(200) NULL
 )
 CREATE TABLE [dbo].[Department]
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
-    [DepartmentName] NCHAR(200) NULL, 
-    [Parent] INT NULL, 
-    CONSTRAINT [FK_Department_Department] FOREIGN KEY ([Parent]) REFERENCES [Department]([Id])
+    [Name] NCHAR(200) NULL, 
+    [Parent_id] INT NULL, 
+    CONSTRAINT [FK_Department_Department] FOREIGN KEY ([Parent_id]) REFERENCES [Department]([Id])
 )
 CREATE TABLE [dbo].[Salary]
 (

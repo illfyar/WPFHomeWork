@@ -15,37 +15,42 @@ namespace WPFHomeWork.EmployeeWindowNS
     public class VMEmployeeWindow : INotifyPropertyChanged
     {
         EmployeeWindow EmployeeWindow { get; set; }
-        public DataTable Positions { get; set; }
-        private DataRowView selectedPosition;
-        public DataRowView SelectedPosition { get { return selectedPosition; }
-            set { selectedPosition = value;
+        public ObservableCollection<Position> Positions { get; set; }
+        private Position selectedPosition;
+        public Position SelectedPosition
+        {
+            get { return selectedPosition; }
+            set
+            {
+                selectedPosition = value;
                 OnPropertyChanged("SelectedPosition");
-            } }
-        public DataTable Departments { get; set; }
-        public DataRowView SelectedDepartment { get; set; }
+            }
+        }
+        public ObservableCollection<Department> Departments { get; set; }
+        public Department SelectedDepartment { get; set; }
         Action UpdateInfo { get; set; }
-        private DataRowView employee;
-        public DataRowView Employee { get { return employee; }
-            set 
-            { 
-                employee = value;
+        private Employee oldEmployee;
+        private Employee newEmployee;
+        public Employee NewEmployee
+        {
+            get { return newEmployee; }
+            set
+            {
+                newEmployee = value;
                 OnPropertyChanged("Employee");
-            } }        
-        public VMEmployeeWindow(DataRowView employee, Action action, EmployeeWindow employeeWindow)
+            }
+        }
+        public VMEmployeeWindow(Employee employee, Action action, EmployeeWindow employeeWindow)
         {
             Positions = DataQueries.SelectPositions();
             Departments = DataQueries.ObservableCollectionDepartments();
             UpdateInfo = action;
-            this.Employee = employee;
-            DataRow dataRow = Positions.Rows.Find(employee.Row.Field<int>("Position_Id"));
-            SelectedPosition = Positions.DefaultView[Positions.Rows.IndexOf(dataRow)];
-            dataRow = Departments.Rows.Find(employee.Row.Field<int>("Department_Id"));
-            SelectedDepartment = Departments.DefaultView[Departments.Rows.IndexOf(dataRow)];
+            oldEmployee = employee;
+            NewEmployee = new Employee();
+            HandlingObjects.CopyValueProperties(NewEmployee, employee);
+            SelectedPosition = Positions.Where(c => c.Id == employee.Position.Id).First();
+            SelectedDepartment= Departments.Where(c => c.Id == employee.Department.Id).First();
             EmployeeWindow = employeeWindow;
-            if (Employee.IsEdit)
-            {
-                
-            }            
         }
 
         #region Commands
@@ -65,7 +70,7 @@ namespace WPFHomeWork.EmployeeWindowNS
             {
                 //HandlingObjects.CopyValueProperties<Employee>(oldEmployee, NewEmployee);
                 UpdateInfo?.Invoke();
-            }             
+            }
         }
         #endregion
         #region SelectionChanged
@@ -100,7 +105,7 @@ namespace WPFHomeWork.EmployeeWindowNS
         }
         private void IsEditMethod(Object obj)
         {
-            Employee.BeginEdit();
+            //NewEmployee.BeginEdit();
             EmployeeWindow.EmployeeWindow1.Title += '*';
         }
         #endregion
