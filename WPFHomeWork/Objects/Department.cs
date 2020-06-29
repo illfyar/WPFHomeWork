@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace WPFHomeWork
 {
     [Table("Department")]
-    public class Department
+    public class Department : IObjectDB
     {
         public Department()
         {
@@ -18,6 +18,7 @@ namespace WPFHomeWork
         public int Id { get; set; }
         public string Name { get; set; }
         public Nullable<int> Parent_id { get; set; }
+        [ForeignKey("Parent_id")]
         public virtual Department Parent { get; set; }
         public virtual ICollection<Employee> Employee { get; set; }
         public Department(string name)

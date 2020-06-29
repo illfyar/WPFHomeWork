@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace WPFHomeWork
 {
     [Table("Salary")]
-    public class Salary
+    public class Salary : IObjectDB
     {
         public Salary()
         {

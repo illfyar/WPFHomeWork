@@ -45,9 +45,9 @@ namespace WPFHomeWork
         }
         private void AddEmployeeHandler(Object obj)
         {
-            //Employee employee = new Employee();
-            //Employees.Add(employee);
-            //UpdateEmployee(employee);
+            Employee employee = new Employee();
+            Employees.Add(employee);
+            UpdateEmployee(employee,true);
         }
         #endregion
         #region RemoveEmployee
@@ -61,22 +61,29 @@ namespace WPFHomeWork
         }
         private void RemoveEmployeeHandler(Object obj)
         {
-            //Employees.Remove(SelectEmployee);            
+            Employees.Remove(SelectEmployee);
+            DataQueries.RemoveData<Employee>(selectEmployee);
         }
         #endregion
         #region MouseDoubleClick
         private MyCommands mouseDoubleClick;
         public MyCommands MouseDoubleClick { 
             get {
-                return mouseDoubleClick ?? (mouseDoubleClick = new MyCommands(UpdateEmployee));
+                return mouseDoubleClick ?? (mouseDoubleClick = new MyCommands(MouseDoubleClickMethod));
             } }
-        private void UpdateEmployee(Object obj)
+
+        private void MouseDoubleClickMethod(Object obj)
+        {
+            UpdateEmployee(obj);
+        }
+        #endregion
+        private void UpdateEmployee(Object obj, bool newEmployee = false)
         {
             if (obj is Employee)
             {
                 EmployeeWindow employeeWindow = new EmployeeWindow();
                 VMEmployeeWindow vMEmployeeWindow =
-                    new VMEmployeeWindow((Employee)obj, new Action(UpdateInfo), employeeWindow);
+                    new VMEmployeeWindow((Employee)obj, new Action(UpdateInfo), employeeWindow, newEmployee);
                 employeeWindow.DataContext = vMEmployeeWindow;
                 employeeWindow.Show();
             }
@@ -86,7 +93,6 @@ namespace WPFHomeWork
             }
 
         }
-        #endregion
         #endregion
 
         public event PropertyChangedEventHandler PropertyChanged;

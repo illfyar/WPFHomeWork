@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace WPFHomeWork
 {
     [Table("Position")]
-    public class Position
+    public class Position : IObjectDB
     {
         public Position()
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
@@ -27,7 +28,12 @@ namespace WPFHomeWork.Data
             modelBuilder.Types<Position>()
                 .Configure(c => c.ToTable("Position"));
             modelBuilder.Types<Employee>()
-                .Configure(c => c.ToTable("Employee"));            
+                .Configure(c => c.ToTable("Employee"));
+            modelBuilder.Entity<Employee>().Property(a => a.Id)
+                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+            //modelBuilder.Entity<Person>().Property(a => a.Id)
+            //    .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+            //base.OnModelCreating(modelBuilder);
         }
     }
 }

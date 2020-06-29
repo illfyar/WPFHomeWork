@@ -105,6 +105,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Objects\IObjectDB.cs" />
     <Compile Include="Objects\Person.cs" />
     <Compile Include="Objects\Position.cs" />
     <Compile Include="Objects\Salary.cs" />
